@@ -41,6 +41,8 @@ for indicator in wb.series.list():
 selection = int(input('\nEnter the number of the indicator you want to use: ')) - 1
 chosen_indicator = indicators_list[selection]['id']
 # print(chosen_indicator)
+
+# Allows the user to pick two different countries 
 country_pick = input('Pick a country you would like to take a look at: ')
 country_pick2 = input('Pick a second country you would like to take a look at: ')
 country_code = get_country_code(country_pick)
@@ -52,13 +54,14 @@ if not country_code:
     print('Country could not be found, please try again with different spelling: ')
 else:
     df = wb.data.DataFrame(chosen_indicator, economy= [country_code, country_code2])#.reset_index()#, time=range(2000, 2024))
-
-
 # print(df)
+
+# This sets up the df to be easier for the px.line() to read it easier 
 flipped_df = df.transpose().reset_index()#.melt()
-#nprint(flipped_df)
 flipped_df.columns = ['Years', country_pick, country_pick2]
 # print(flipped_df)
+
+# Creates the line graph comparies boths countries and the single indicator chosen
 fig = px.line(
     flipped_df,
     x = 'Years',                  # x-axis: years

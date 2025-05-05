@@ -5,6 +5,7 @@ import datetime
 import wbgapi as wb
 import difflib
 
+# This part of the code looks for the 3 letter country code using the counrty name the user use 
 def get_country_code(country_name):
     country_name = country_name.strip().lower()
     countries = {c['value'].lower(): c['id'] for c in wb.economy.list()}
@@ -37,17 +38,25 @@ for indicator in wb.series.list():
         print(f"{choice}: {id_title} - {indicator_name}")
         choice += 1
         indicators_list.append(indicator)
+        
+# Allows the user to look at all the indicators that has their keyword and allows them to pick it via a number
 selection = int(input('\nEnter the number of the indicator you want to use: ')) - 1
 chosen_indicator = indicators_list[selection]['id']
 # print(chosen_indicator)
+
+
+# Asks the user to pick a country 
 country_pick = input('Pick a country you would like to take a look at: ')
 country_code = get_country_code(country_pick)
 # print(country_code)
 
+# If the user missspelled the name of a country or the system cant find it, 
+# this allows them to type it in again without having to run the script again
 if not country_code:
     print('Country could not be found, please try again with different spelling: ')
 else:
     df = wb.data.DataFrame(chosen_indicator, economy=country_code)#, time=range(2000, 2024))
+    
 # print(df)
 flipped_df = df.transpose().reset_index()
 # print(flipped_df)
