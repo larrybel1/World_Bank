@@ -56,9 +56,11 @@ df_2 = wb.data.DataFrame(chosen_indicator_2)
 
 # I honestly thing that using two different dfs would make it easier to graph and draw comparisons between them
 df_long = df.reset_index().melt(id_vars = 'economy', var_name = 'Year', value_name = chosen_indicator)
+print(df_long)
 df_2_long = df_2.reset_index().melt(id_vars = 'economy', var_name = 'Year', value_name = chosen_indicator_2)
-df_merge = pd.merge(df_long, df_2_long, on = ['Year'])
-print(df_merge.iloc[:100,:])
+print(df_2_long)
+df_merge = pd.merge(df_long, df_2_long, on = ['economy','Year'])
+print(df_merge.iloc[:15,:])
 
 # plt.plot(df, usa_pop, label='USA Population', marker='o')
 # plt.plot(years, usa_co2, label='USA CO₂ Emissions', marker='x')
