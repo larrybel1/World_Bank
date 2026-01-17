@@ -11,8 +11,10 @@ df = pd.read_excel("WDI_data.xlsx")
 column_to_drop = ["Country Code", "Series Code"]
 df_simple = df.drop(columns = column_to_drop)
 
+# Trying to rename the year rows to just have the year 
 # df_simple.columns.values[2:] = [c.split("_"[0]) for c in df_simple.columns.values[2:]]
 df_simple.columns.values[2:] = [''.join(filter(str.isdigit, c)) for c in df_simple.columns.values[2:]]
+
 
 
 
