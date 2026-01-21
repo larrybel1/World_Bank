@@ -17,12 +17,24 @@ df_simple = df.drop(columns = column_to_drop)
 ### Managed to rename the columns to have just the years
 df_simple.columns.values[2:] = [''.join(filter(str.isdigit, c)) for c in df_simple.columns.values[2:]]
 df_simple.columns.values[2:] = df_simple.columns.values[2:].astype(int) // 10000
+df_simple = df_simple.replace(['..'], 0)
 
 ### Checking new df
-#   print(df_simple.iloc[0:10 , 0:10])
-# print(df_simple.columns.values[2:])
+print(df_simple.iloc[0:10 , 0:10])
+print(df_simple.columns.values[2:])
 
-### Now trying to create a simple graph for the first row
-# print(df_simple.iloc[0])
-df_simple.iloc[1].plot()
-plt.show()
+
+
+# ### Now trying to create a simple graph for the first row
+# # print(df_simple.iloc[0])
+# years = df_simple.columns.values[2:]
+# rowone = df_simple.iloc[1]#.reset_index()
+# rowone = rowone.replace(['..'] , 0 )
+# rowdata = rowone[2:]
+# # print(rowdata)
+# plt.figure(figsize=(8,5))
+# rowdata.plot()
+# plt.xlabel('Years')
+# plt.ylabel('GDP Growth (annual %)')
+
+# plt.show()
