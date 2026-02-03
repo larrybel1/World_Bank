@@ -16,14 +16,45 @@ df_simple = df.drop(columns = column_to_drop)
 ### Trying to rename the year rows to just have the year 
 # df_simple.columns.values[2:] = [c.split("_"[0]) for c in df_simple.columns.values[2:]]
 ### Managed to rename the columns to have just the years
+### The line right below takes the .. and can turn them into NaN or 0, depending on what we are looking to do with the data
+### For certain countries, we cant use any of the data in certain column becasue there isnt enough togo off of 
 df_simple = df_simple.replace(['..'], "NaN")
+
+### Renames the columns to just contain the Year and nothing else
 df_simple.columns.values[2:] = [''.join(filter(str.isdigit, c)) for c in df_simple.columns.values[2:]]
 df_simple.columns.values[2:] = df_simple.columns.values[2:].astype(int) // 10000
-af_data = df_simple.loc[df_simple['Country Name'] == 'Afghanistan']
+### Pick a country to take a look at, in this case we are looking at Afganistan
+country_data = df_simple.loc[df_simple['Country Name'] == 'Afghanistan']
+### Dropping all rows containing all NaNs or 0s 
+country_data = country_data.dropna(how = 'all')
+### Trying to get the averages for all the rows
+averages = country_data.iloc[2:].mean()
+
+
+
+
+
 
 ### Checking new df
-#print(df_simple.iloc[0:10 , 0:10])
-print(af_data)
+print(country_data)
+print(averages)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
